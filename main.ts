@@ -77,9 +77,6 @@ let TempF = 0
 let TdP = 0
 let heatindexC = 0
 FirstRun()
-/**
- * Calculates dew point (temperature below which water condenses and dew forms)
- */
 // Main script: sets brightness, turns on LEDs and Bluetooth service. The script then calls the encoded functions for temperature, pressure, humidity, dew point, and heat index. The LEDs turn off after reporting, and waits for 10 minutes before making another report.
 basic.forever(function () {
     led.setBrightness(60)

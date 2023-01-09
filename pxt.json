@@ -3,14 +3,10 @@
     "description": "",
     "dependencies": {
         "core": "*",
-        "pxt-kitronik-klimate": "github:kitronikltd/pxt-kitronik-klimate#402dfcb2267f04ccdf47f102c166919edd771573",
-        "pxt-esp8266_thingspeak": "github:alankrantas/pxt-esp8266_thingspeak#v0.0.3",
+        "pxt-kitronik-klimate": "github:kitronikltd/pxt-kitronik-klimate#v1.0.2",
         "bluetooth": "*",
-        "pxt-wifi": "github:e-radionicacom/pxt-wifi#v1.0.1",
         "microphone": "*",
         "datalogger": "*",
-        "Environment-and-Science-IoT": "github:tinkertanker/pxt-iot-environment-kit#v5.1.7",
-        "microbit-pxt-timeanddate": "github:bsiever/microbit-pxt-timeanddate#v2.0.33",
         "power": "github:microbit-foundation/pxt-microbit-v2-power#v0.2.3"
     },
     "files": [
@@ -32,5 +28,5 @@
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "blocksprj"
+    "preferredEditor": "tsprj"
 }

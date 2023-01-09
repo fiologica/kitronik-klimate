@@ -1,31 +1,14 @@
-/**
- * Calculates dew point (temperature below which water condenses and dew forms)
- */
-/**
- * Calculates Heat Index (how hot it feels when temperature and humidity are combined)
- */
-/**
- * Measures temperature in celsius
- */
-/**
- * Measures barometric pressure in milibars
- */
-/**
- * Measures humidity
- */
 function LogData () {
     datalogger.log(datalogger.createCV("Temp", Kitronik_klimate.temperature(Kitronik_klimate.TemperatureUnitList.C)))
     datalogger.log(datalogger.createCV("Humidity", Kitronik_klimate.humidity()))
     datalogger.log(datalogger.createCV("BarometricPressure", Kitronik_klimate.pressure(Kitronik_klimate.PressureUnitList.mBar)))
     datalogger.log(datalogger.createCV("HeatIndex", heatindexC))
     datalogger.log(datalogger.createCV("DewPoint", TdP))
-    datalogger.log(datalogger.createCV("Time", timeanddate.time(timeanddate.TimeFormat.HHMMSS24hr)))
 }
 datalogger.onLogFull(function () {
     datalogger.deleteLog()
 })
 function FirstRun () {
-    TimeStamp()
     datalogger.setColumnTitles(
     "Temp",
     "Humidity",
@@ -46,26 +29,16 @@ input.onButtonPressed(Button.A, function () {
     dewPoint()
     heatIndex()
     mBarPressure()
-    TimeStamp()
     LogData()
     basic.clearScreen()
     led.enable(false)
     power.lowPowerEnable(LowPowerEnable.Allow)
-})
-timeanddate.onMinuteChanged(function () {
-    timeanddate.advanceBy(1, timeanddate.TimeUnit.Minutes)
-})
-timeanddate.onDayChanged(function () {
-    timeanddate.advanceBy(1, timeanddate.TimeUnit.Days)
 })
 function humidity () {
     serial.writeValue("Humidity", Kitronik_klimate.humidity())
     basic.showString("Humidity" + "is" + Kitronik_klimate.humidity() + "%")
     bluetooth.uartWriteLine("Humidity" + "is" + Kitronik_klimate.humidity() + "%")
 }
-timeanddate.onHourChanged(function () {
-    timeanddate.advanceBy(1, timeanddate.TimeUnit.Hours)
-})
 function heatIndex () {
     if (Kitronik_klimate.temperature(Kitronik_klimate.TemperatureUnitList.C) >= 22) {
         TempF = Kitronik_klimate.temperature(Kitronik_klimate.TemperatureUnitList.F)
@@ -90,11 +63,6 @@ function dewPoint () {
     serial.writeValue("Dew Point", TdP)
     basic.showString("Dew" + "point" + "is" + TdP + "°C")
 }
-function TimeStamp () {
-    timeanddate.set24HourTime(19, 37, 0)
-    timeanddate.setDate(1, 7, 2023)
-    timeanddate.advanceBy(1, timeanddate.TimeUnit.Seconds)
-}
 function Temperature () {
     serial.writeValue("Temperature", Kitronik_klimate.temperature(Kitronik_klimate.TemperatureUnitList.C))
     basic.showString("Temperature" + "is" + Kitronik_klimate.temperature(Kitronik_klimate.TemperatureUnitList.C) + "°C")
@@ -110,8 +78,9 @@ let TdP = 0
 let heatindexC = 0
 FirstRun()
 /**
- * Main script: sets brightness, turns on LEDs and Bluetooth service. The script then calls the encoded functions for temperature, pressure, humidity, dew point, and heat index. The LEDs turn off after reporting, and waits for 10 minutes before making another report.
+ * Calculates dew point (temperature below which water condenses and dew forms)
  */
+// Main script: sets brightness, turns on LEDs and Bluetooth service. The script then calls the encoded functions for temperature, pressure, humidity, dew point, and heat index. The LEDs turn off after reporting, and waits for 10 minutes before making another report.
 basic.forever(function () {
     led.setBrightness(60)
     led.enable(true)
@@ -120,7 +89,6 @@ basic.forever(function () {
     dewPoint()
     heatIndex()
     mBarPressure()
-    TimeStamp()
     LogData()
     basic.clearScreen()
     led.enable(false)

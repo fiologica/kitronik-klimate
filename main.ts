@@ -90,6 +90,5 @@ basic.forever(function () {
     basic.clearScreen()
     led.enable(false)
     power.lowPowerEnable(LowPowerEnable.Allow)
-    power.lowPowerRequest(LowPowerMode.Wait)
-    basic.pause(600000)
+    power.lowPowerPause(3600000)
 })

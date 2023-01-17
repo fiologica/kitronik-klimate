@@ -20,27 +20,18 @@ function FirstRun () {
     )
     LogData()
 }
-input.onButtonPressed(Button.A, function () {
-    power.fullPowerOn(FullPowerSource.A)
-    led.setBrightness(60)
-    led.enable(true)
-    Temperature()
-    humidity()
-    dewPoint()
-    heatIndex()
-    mBarPressure()
-    LogData()
-    serial2()
-    basic.clearScreen()
-    led.enable(false)
-    power.lowPowerEnable(LowPowerEnable.Allow)
-})
 function serial2 () {
-    serial.writeValue("Temperature", Kitronik_klimate.temperature(Kitronik_klimate.TemperatureUnitList.C))
-    serial.writeValue("Humidity", Kitronik_klimate.humidity())
-    serial.writeValue("Dew Point", TdP)
-    serial.writeValue("Heat Index (Celcius)", heatindexC)
-    serial.writeValue("Barometric Pressure", Kitronik_klimate.pressure(Kitronik_klimate.PressureUnitList.mBar))
+    serial.setBaudRate(BaudRate.BaudRate115200)
+    serial.redirectToUSB()
+    serial.writeString(timeanddate.dateTime())
+    serial.writeNumbers([
+    Kitronik_klimate.temperature(Kitronik_klimate.TemperatureUnitList.C),
+    Kitronik_klimate.humidity(),
+    heatindexC,
+    TdP,
+    Kitronik_klimate.pressure(Kitronik_klimate.PressureUnitList.mBar)
+    ])
+    serial.writeLine("")
 }
 function humidity () {
     basic.showString("Humidity" + "is" + Kitronik_klimate.humidity() + "%")
@@ -75,7 +66,7 @@ function mBarPressure () {
 }
 function timedate () {
     timeanddate.numericTime(function (hour, minute, second, month, day, year) {
-        timeanddate.set24HourTime(18, 57, 0)
+        timeanddate.set24HourTime(20, 29, 0)
         timeanddate.setDate(1, 17, 2023)
         timeanddate.advanceBy(timeanddate.secondsSinceReset(), timeanddate.TimeUnit.Milliseconds)
     })
@@ -92,13 +83,13 @@ serial2()
 basic.forever(function () {
     led.setBrightness(60)
     led.enable(true)
+    serial2()
     Temperature()
     humidity()
     dewPoint()
     heatIndex()
     mBarPressure()
     LogData()
-    serial2()
     basic.clearScreen()
     led.enable(false)
     power.lowPowerEnable(LowPowerEnable.Allow)

@@ -5,11 +5,9 @@
         "core": "*",
         "pxt-kitronik-klimate": "github:kitronikltd/pxt-kitronik-klimate#v1.0.2",
         "bluetooth": "*",
-        "microphone": "*",
         "datalogger": "*",
         "power": "github:microbit-foundation/pxt-microbit-v2-power#v0.2.3",
-        "microbit-pxt-timeanddate": "github:bsiever/microbit-pxt-timeanddate#v2.0.33",
-        "data-streamer": "github:microsoft/pxt-data-streamer#v0.1.3"
+        "microbit-pxt-timeanddate": "github:bsiever/microbit-pxt-timeanddate#v2.0.33"
     },
     "files": [
         "main.blocks",

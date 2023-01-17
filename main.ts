@@ -22,8 +22,8 @@ function FirstRun () {
 }
 function serial2 () {
     serial.setBaudRate(BaudRate.BaudRate115200)
-    serial.redirectToUSB()
     serial.writeString(timeanddate.dateTime())
+    serial.writeLine("")
     serial.writeNumbers([
     Kitronik_klimate.temperature(Kitronik_klimate.TemperatureUnitList.C),
     Kitronik_klimate.humidity(),
@@ -66,9 +66,9 @@ function mBarPressure () {
 }
 function timedate () {
     timeanddate.numericTime(function (hour, minute, second, month, day, year) {
-        timeanddate.set24HourTime(20, 29, 0)
+        timeanddate.set24HourTime(21, 33, 0)
         timeanddate.setDate(1, 17, 2023)
-        timeanddate.advanceBy(timeanddate.secondsSinceReset(), timeanddate.TimeUnit.Milliseconds)
+        timeanddate.advanceBy(timeanddate.secondsSinceReset(), timeanddate.TimeUnit.Seconds)
     })
 }
 let HI = 0
@@ -78,18 +78,17 @@ let TdP = 0
 let heatindexC = 0
 FirstRun()
 timedate()
-serial2()
 // Main script: sets brightness, turns on LEDs and Bluetooth service. The script then calls the encoded functions for temperature, pressure, humidity, dew point, and heat index. The LEDs turn off after reporting, and waits for 10 minutes before making another report.
 basic.forever(function () {
     led.setBrightness(60)
     led.enable(true)
-    serial2()
     Temperature()
     humidity()
     dewPoint()
     heatIndex()
     mBarPressure()
     LogData()
+    serial2()
     basic.clearScreen()
     led.enable(false)
     power.lowPowerEnable(LowPowerEnable.Allow)

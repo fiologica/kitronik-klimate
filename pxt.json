@@ -7,7 +7,8 @@
         "bluetooth": "*",
         "microphone": "*",
         "datalogger": "*",
-        "power": "github:microbit-foundation/pxt-microbit-v2-power#v0.2.3"
+        "power": "github:microbit-foundation/pxt-microbit-v2-power#v0.2.3",
+        "microbit-pxt-timeanddate": "github:bsiever/microbit-pxt-timeanddate#v2.0.33"
     },
     "files": [
         "main.blocks",
